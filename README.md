@@ -12,3 +12,19 @@ Application layer
 Domain and Shared layer
 
 Repository layer.
+
+# Implementations
+
+-EntityFrameWork Core 2.0.2
+
+-FluentValidation 7.5.2
+
+-AutoMapper 6.2.2
+
+-DependencyInjection
+
+-Migration
+
+-CodeFirst
+
+-unit of work
