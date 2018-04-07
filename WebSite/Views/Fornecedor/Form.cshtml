@@ -1,0 +1,91 @@
+﻿@model FornecedorViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Formulário de Fornecedor</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal" asp-action="@base.ViewContext.RouteData.Values["action"]"
+                          data-fw-ajax data-fw-disable-fields="@Json.Serialize(Model.SomenteLeitura)">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" asp-for="Cnpj">
+                                Fornecedor<span asp-validation-for="Cnpj"></span>
+                            </label>
+                            <div class="col-lg-3">
+                                <input asp-for="Cnpj"
+                                       type="text"
+                                       placeholder="CNPJ"
+                                       class="form-control"
+                                       maxlength="18"
+                                       data-mask="00.000.000/0000-00"
+                                       data-val="true"
+                                       data-val-required="Obrigatório" />
+                            </div>
+                            <label asp-for="RazaoSocial" class="col-lg-2 control-label">Razão Social<span asp-validation-for="RazaoSocial"></span></label>
+                            <div class="col-lg-5">
+                                <input asp-for="RazaoSocial"
+                                       type="text"
+                                       placeholder="Inscrição Municipal"
+                                       class="form-control"
+                                       maxlength="200"
+                                       data-val="true"
+                                       data-val-required="Obrigatório" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="InscricaoMunicipal" class="col-lg-2 control-label">Inscrição Municipal<span asp-validation-for="InscricaoMunicipal"></span></label>
+                            <div class="col-lg-6">
+                                <input asp-for="InscricaoMunicipal"
+                                       type="text"
+                                       placeholder="Inscrição Municipal"
+                                       class="form-control"
+                                       maxlength="11"
+                                       data-mask="#.###.###-#" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ReceitaBruta" class="col-lg-2 control-label">Receita Bruta<span asp-validation-for="ReceitaBruta"></span></label>
+                            <div class="col-lg-6">
+                                <input asp-for="ReceitaBruta"
+                                       type="text"
+                                       placeholder="Receita Bruta"
+                                       class="form-control"
+                                       data-mask="###.###.###.###,00"
+                                       data-mask-reverse="true"
+                                       data-val="true"
+                                       data-val-required="Obrigatório" />
+                            </div>
+                        </div>
+                        <hr />
+                        @{ Html.RenderPartial("~/Views/Endereco/Form.cshtml", Model.TelaEnderecos); }
+                        <hr />
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+
+                                @if (!Model.SomenteLeitura)
+                                {
+                                    <button class="btn btn-sm btn-primary" type="submit">Salvar</button>
+                                }
+
+                                <a class="btn btn-sm btn-default" href="@Url.Action("Index")">Voltar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/camposmultiplos.js"></script>
+}

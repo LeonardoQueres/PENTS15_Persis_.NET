@@ -1,0 +1,149 @@
+﻿@model ProcessoViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var fornecedor = new SelectList(Model.Fornecedores, "Key", "Value");
+
+    var desabilitaCampo = @ViewBag.desabilitaCampo;
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Formulário de Processo</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal" asp-action="@base.ViewContext.RouteData.Values["action"]"
+                          data-fw-ajax data-fw-disable-fields="@Json.Serialize(Model.SomenteLeitura)">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="FornecedorId" class="col-lg-2 control-label">Fornecedor<span asp-validation-for="FornecedorId"></span></label>
+                            <div class="col-lg-6">
+                                <select asp-for="FornecedorId" asp-items="fornecedor" class="form-control busca-fornecedor" disabled="@desabilitaCampo">
+                                    <option value="">-- Selecione --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" asp-for="Cnpj">
+                                Cnpj<span asp-validation-for="Cnpj"></span>
+                            </label>
+                            <div class="col-lg-3">
+                                <input asp-for="Cnpj"
+                                       type="text"
+                                       name="Cnpj"
+                                       placeholder="Cnpj"
+                                       class="form-control form-cnpj"
+                                       maxlength="9"
+                                       data-mask="00.000.000/0000-00"
+                                       data-mask-reverse="true"
+                                       data-val="true"
+                                       data-val-required="Obrigatório"
+                                       readonly />
+                            </div>
+
+                            <label asp-for="RazaoSocial" class="col-lg-2 control-label">Razão Social<span asp-validation-for="RazaoSocial"></span></label>
+                            <div class="col-lg-5">
+                                <input asp-for="RazaoSocial"
+                                       type="text"
+                                       placeholder="Inscrição Municipal"
+                                       class="form-control"
+                                       maxlength="200"
+                                       data-val="true"
+                                       data-val-required="Obrigatório"
+                                       readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="InscricaoMunicipal" class="col-lg-2 control-label">Inscrição Municipal<span asp-validation-for="InscricaoMunicipal"></span></label>
+                            <div class="col-lg-6">
+                                <input asp-for="InscricaoMunicipal"
+                                       type="text"
+                                       placeholder="Inscrição Municipal"
+                                       class="form-control"
+                                       maxlength="11"
+                                       data-mask="#.###.###-#"
+                                       data-val="true"
+                                       data-val-required="Obrigatório"
+                                       readonly />
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <div class="form-group">
+                            <label asp-for="Numero" class="col-lg-2 control-label">Número Processo<span asp-validation-for="Numero"></span></label>
+                            <div class="col-lg-6">
+                                <input asp-for="Numero"
+                                       type="text"
+                                       placeholder="Número"
+                                       class="form-control"
+                                       maxlength="30"
+                                       readonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" asp-for="Relato">Data de Relato<span asp-validation-for="Relato"></span></label>
+                            <div class="col-lg-2">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <input asp-for="Relato"
+                                           type="text"
+                                           placeholder="Data Relato"
+                                           class="form-control"
+                                           maxlength="10"
+                                           data-val="true"
+                                           data-mask="##/##/####"
+                                           data-mask-reverse="true"
+                                           data-val-required="Obrigatório" />
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <label asp-for="FiscalResponsavel" class="col-lg-2 control-label">Fiscal Responsável<span asp-validation-for="FiscalResponsavel"></span></label>
+                            <div class="col-lg-6">
+                                <input asp-for="FiscalResponsavel"
+                                       type="text"
+                                       placeholder="Fiscal Responsável"
+                                       class="form-control"
+                                       maxlength="100"
+                                       data-val="true"
+                                       data-val-required="Obrigatório" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label asp-for="RelatoFiscalizacao" class="col-lg-2 control-label">Relato Fiscalização<span asp-validation-for="RelatoFiscalizacao"></span></label>
+                                <div class="col-lg-9">
+                                    <textarea asp-for="RelatoFiscalizacao"
+                                              maxlength="1000"
+                                              rows="10"
+                                              class="form-control"
+                                              data-val="true"
+                                              data-val-required="Obrigatório"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+
+                                @if (!Model.SomenteLeitura)
+                                {
+                                    <button class="btn btn-sm btn-primary" type="submit">Salvar</button>
+                                }
+
+                                <a class="btn btn-sm btn-default" href="@Url.Action("Index")">Voltar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

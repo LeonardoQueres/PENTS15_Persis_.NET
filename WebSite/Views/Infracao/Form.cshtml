@@ -1,0 +1,138 @@
+﻿@model InfracaoViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var desabilitaCampo = @ViewBag.desabilitaCampo;
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Formulário de Infração</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal" asp-action="@base.ViewContext.RouteData.Values["action"]"
+                          data-fw-ajax data-fw-disable-fields="@Json.Serialize(Model.SomenteLeitura)">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="ProcessoId" />
+                        <div class="form-group">
+                            <label asp-for="RazaoSocial" class="col-lg-2 control-label">Razão Social<span asp-validation-for="RazaoSocial"></span></label>
+                            <div class="col-lg-6">
+                                <input asp-for="RazaoSocial"
+                                       type="text"
+                                       name="RazaoSocial"
+                                       placeholder="Razão Social"
+                                       class="form-control"
+                                       readonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" asp-for="Cnpj">
+                                Cnpj<span asp-validation-for="Cnpj"></span>
+                            </label>
+                            <div class="col-lg-2">
+                                <input asp-for="Cnpj"
+                                       type="text"
+                                       name="Cnpj"
+                                       placeholder="Cnpj"
+                                       class="form-control form-cnpj"
+                                       maxlength="9"
+                                       data-mask="00.000.000/0000-00"
+                                       data-mask-reverse="true"
+                                       data-val="true"
+                                       readonly />
+                            </div>
+                            <label asp-for="ReceitaBruta" class="col-lg-2 control-label">Receita Bruta<span asp-validation-for="ReceitaBruta"></span></label>
+                            <div class="col-lg-2">
+                                <input asp-for="ReceitaBruta"
+                                       type="text"
+                                       placeholder="Receita Bruta"
+                                       class="form-control"
+                                       data-mask="###.###.###.###,00"
+                                       data-mask-reverse="true"
+                                       data-val="true"
+                                       readonly />
+                            </div>
+                            <label class="col-lg-2 control-label" asp-for="Relato">Data de Relato<span asp-validation-for="Relato"></span></label>
+                            <div class="col-lg-2">
+                                <div class="input-group date">
+                                    <input asp-for="Relato"
+                                           type="text"
+                                           placeholder="Data Relato"
+                                           class="form-control"
+                                           maxlength="10"
+                                           data-val="true"
+                                           data-mask="##/##/####"
+                                           data-mask-reverse="true" readonly />
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RelatoFiscalizacao" class="col-lg-2 control-label">Relato Fiscalização<span asp-validation-for="RelatoFiscalizacao"></span></label>
+                            <div class="col-lg-9">
+                                <textarea asp-for="RelatoFiscalizacao"
+                                          maxlength="1000"
+                                          rows="10"
+                                          class="form-control" readonly></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <label asp-for="Gravidade" class="col-lg-2 control-label">Gravidade<span asp-validation-for="Gravidade"></span></label>
+                            <div class="col-lg-2">
+                                <select asp-for="Gravidade"
+                                        class="form-control"
+                                        data-val="true"
+                                        data-val-required="Obrigatório">
+                                    <option value="">Selecione</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <label asp-for="Multa" class="col-lg-2 control-label">Multa<span asp-validation-for="Multa"></span></label>
+                            <div class="col-lg-2">
+                                <input asp-for="Multa"
+                                       type="text"
+                                       placeholder="Multa"
+                                       class="form-control"
+                                       data-mask="###.###.###.###,00"
+                                       data-mask-reverse="true"
+                                       readonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Atenuante" class="col-lg-2 control-label">Atenuante<span asp-validation-for="Atenuante"></span></label>
+                            <div class="col-lg-2">
+                                <input asp-for="Atenuante"
+                                       type="checkbox" />
+                            </div>
+                            <label asp-for="Agravante" class="col-lg-2 control-label">Agravante<span asp-validation-for="Agravante"></span></label>
+                            <div class="col-lg-2">
+                                <input asp-for="Agravante"
+                                       type="checkbox" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+
+                                @if (!Model.SomenteLeitura)
+                                {
+                                    <button class="btn btn-sm btn-primary" type="submit">Salvar</button>
+                                }
+
+                                <a class="btn btn-sm btn-default" href="@Url.Action("Index", "Infracao", new { IdProc = Model.ProcessoId })">Voltar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

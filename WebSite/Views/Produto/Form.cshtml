@@ -1,0 +1,84 @@
+﻿@model ProdutoViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var fornecedor = new SelectList(Model.Fornecedores, "Key", "Value");
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Formulário de Produtos</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal" asp-action="@base.ViewContext.RouteData.Values["action"]"
+                          data-fw-ajax data-fw-disable-fields="@Json.Serialize(Model.SomenteLeitura)">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" asp-for="Nome">
+                                Nome<span asp-validation-for="Nome"></span>
+                            </label>
+                            <div class="col-lg-3">
+                                <input asp-for="Nome"
+                                       type="text"
+                                       placeholder="Nome"
+                                       class="form-control"
+                                       maxlength="100"
+                                       data-val="true"
+                                       data-val-required="Obrigatório" />
+                            </div>
+                            <label asp-for="Marca" class="col-lg-2 control-label">Marca<span asp-validation-for="Marca"></span></label>
+                            <div class="col-lg-5">
+                                <input asp-for="Marca"
+                                       type="text"
+                                       placeholder="Marca"
+                                       class="form-control"
+                                       maxlength="100"
+                                       data-val="true"
+                                       data-val-required="Obrigatório" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Estoque" class="col-lg-2 control-label">Estoque<span asp-validation-for="Estoque"></span></label>
+                            <div class="col-lg-6">
+                                <input asp-for="Estoque"
+                                       type="text"
+                                       placeholder="Estoque"
+                                       class="form-control"
+                                       maxlength="100" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FornecedorId" class="col-lg-2 control-label">Fornecedor<span asp-validation-for="FornecedorId"></span></label>
+                            <div class="col-lg-6">
+                                <select asp-for="FornecedorId"
+                                        asp-items="fornecedor"
+                                        class="form-control">
+                                    <option value="">Selecione</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+
+                                @if (!Model.SomenteLeitura)
+                                {
+                                    <button class="btn btn-sm btn-primary" type="submit">Salvar</button>
+                                }
+
+                                <a class="btn btn-sm btn-default" href="@Url.Action("Index")">Voltar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/camposmultiplos.js"></script>
+}

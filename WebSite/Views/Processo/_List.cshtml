@@ -1,0 +1,48 @@
+﻿@model ICollection<ProcessoListaViewModel>
+
+<table class="table table-striped table-bordered datatable">
+    <colgroup>
+        <col width="150" />
+        <col width="150" />
+        <col width="150" />
+        <col width="50" />
+        <col width="80" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Número do Processo</th>
+            <th>Razão Social / Cnpj</th>
+            <th>Fiscal Responsável</th>
+            <th>Data Relato</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Numero</td>
+                <td>@String.Format("{0} / {1}", item.RazaoSocial, item.Cnpj)</td>
+                <td>@item.FiscalResponsavel</td>
+                <td>@item.Relato</td>
+                <td class="text-center">
+                    <a class="btn btn-xs btn-default" title="Auto de Infração" href="@Url.Action("Index", "Infracao", new { IdProc = item.Id })">
+                        <i class="fa fa-fw fa-gavel"></i>
+                    </a>
+                    @*<a class="btn btn-xs btn-default" asp-controller="Infracao" asp-action="Index" title="Auto de Infração" asp-route-id="@item.Id">
+                            <i class="fa fa-fw fa-gavel"></i>
+                        </a>*@
+                    <a class="btn btn-xs btn-default" asp-action="visualizar" title="Visualizar" asp-route-id="@item.Id">
+                        <i class="fa fa-fw fa-search-plus"></i>
+                    </a>
+                    <a class="btn btn-xs btn-default" asp-action="editar" title="Editar" asp-route-id="@item.Id">
+                        <i class="fa fa-fw fa-edit"></i>
+                    </a>
+                    <a class="btn btn-xs btn-default" asp-action="excluir" title="Excluir" asp-route-id="@item.Id" data-fw-delete-item>
+                        <i class="fa fa-fw fa-trash-o"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
